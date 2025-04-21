@@ -6,6 +6,7 @@
     <title>Peel District-Wide Chess Tournament | Port Credit Chess Club</title>
     <link href="ZugzwangIcon.png" rel="shortcut icon" type="image/x-icon" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
             --primary: #1a1a2e;
@@ -580,14 +581,6 @@
             border-left: 4px solid var(--accent);
         }
 
-        /* Footer */
-        footer {
-            background: var(--dark);
-            padding: 3rem;
-            text-align: center;
-            margin-top: 5rem;
-        }
-
         .contact-email {
             color: var(--accent);
             font-weight: 700;
@@ -715,6 +708,73 @@
             .schedule-item::before {
                 left: -2rem;
             }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            text-align: center;
+            position: relative;
+        }
+
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo img {
+            height: 60px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-logo:hover img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social a {
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 2rem;
         }
     </style>
 </head>
@@ -940,8 +1000,34 @@
     </div>
 
     <footer>
-        <p>© 2025 Port Credit Chess Club | Peel District-Wide Chess Tournament</p>
-        <p>All schools in the Peel District are welcome to participate</p>
+        <div class="container">
+            
+            <div class="footer-links">
+                <a href="#aboutus">Overview</a>
+                <a href="#teamandcurrent">Venue</a>
+                <a href="#followus">Schedule</a>
+                <a href="#partners">Rules</a>
+                <a href="#upcomingtournaments">Details</a>
+                <a href="#viewmemories">Awards</a>
+            </div>
+            
+            <div class="footer-social">
+                <a target="_blank" href="https://github.com/ZugzwangChessClub"><i class="fa-brands fa-github"></i></a>
+                <a target="_blank" href="https://discord.com/invite/UyghD9ZCQJ"><i class="fa-brands fa-discord"></i></a>
+                <a target="_blank" href="https://www.instagram.com/zugzwangchessclub/"><i class="fa-brands fa-instagram"></i></a>
+                <a target="_blank" href="https://www.twitch.tv/zugzwangchessclub"><i class="fa-brands fa-twitch"></i></a>
+                <a target="_blank" href="https://zugzwangcc.wordpress.com"><i class="fa-brands fa-wordpress-simple"></i></a>
+                <a target="_blank" href="https://www.chess.com/club/zugzwang-club"><i class="fa-solid fa-chess-board"></i></a>
+                <a target="_blank" href="https://drive.google.com/drive/folders/1_IzsOJ2hare8QEWBU-HqRME7ey_JgVQV?usp=sharing"><i class="fa-brands fa-google-drive"></i></a>
+                <a target="_blank" href="mailto: chessclubzugzwang@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+                <a target="_blank" href="tel:437-450-4378"><i class="fa-solid fa-phone"></i></a>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Port Credit Chess Club | Peel District-Wide Chess Tournament<br>
+                All schools in the Peel District are welcome to participate
+            </div>
+        </div>
     </footer>
 
     <!-- Back to Top Button -->
