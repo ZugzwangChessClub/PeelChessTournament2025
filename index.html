@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peel District Chess Tournament | Port Credit Chess Club</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #f8bb22;
+            --light: #e6f9ff;
+            --dark: #0f0f1a;
+            --text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        /* 3D Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-20px) rotateY(5deg); }
+        }
+
+        @keyframes chessMove {
+            0% { transform: translate(0, 0) rotateY(0deg); }
+            25% { transform: translate(10px, -10px) rotateY(15deg); }
+            50% { transform: translate(0, -20px) rotateY(0deg); }
+            75% { transform: translate(-10px, -10px) rotateY(-15deg); }
+            100% { transform: translate(0, 0) rotateY(0deg); }
+        }
+
+        @keyframes boardTilt {
+            0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(5deg) rotateY(5deg); }
+            50% { transform: rotateX(0deg) rotateY(10deg); }
+            75% { transform: rotateX(-5deg) rotateY(5deg); }
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            z-index: 2;
+            transform-style: preserve-3d;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, var(--accent), #fff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .date-badge {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transform: rotate(-5deg);
+        }
+
+        .chess-piece {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.8;
+            animation: chessMove 15s infinite ease-in-out;
+        }
+
+        .chess-piece:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        .chess-piece:nth-child(2) {
+            top: 70%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        .chess-piece:nth-child(3) {
+            top: 30%;
+            right: 15%;
+            animation-delay: 4s;
+        }
+        .chess-piece:nth-child(4) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        section {
+            margin-bottom: 6rem;
+            transform-style: preserve-3d;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        h2:hover::after {
+            transform: scaleX(1);
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            transform-style: preserve-3d;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.4);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .prize-card {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            border: 1px solid var(--accent);
+        }
+
+        .prize-card:hover {
+            transform: scale(1.05) rotateY(10deg);
+            box-shadow: 0 15px 40px rgba(248, 187, 34, 0.3);
+        }
+
+        .prize-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .prize-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(248, 187, 34, 0.4);
+        }
+
+        /* Enhanced Chess Board */
+        .chess-board-container {
+            perspective: 1000px;
+            margin: 3rem auto;
+            width: fit-content;
+        }
+
+        .chess-board {
+            width: 400px;
+            height: 400px;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            transform-style: preserve-3d;
+            transform: rotateX(10deg) rotateY(-10deg);
+            transition: transform 0.5s ease;
+            position: relative;
+            border: 15px solid #5d4037;
+            border-radius: 5px;
+        }
+
+        .chess-board:hover {
+            transform: rotateX(15deg) rotateY(-5deg);
+        }
+
+        .chess-square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .light-square {
+            background: #f0d9b5;
+        }
+
+        .dark-square {
+            background: #b58863;
+        }
+
+        .chess-piece {
+            font-size: 2.5rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chess-piece:hover {
+            transform: translateY(-5px);
+        }
+
+        .board-edge {
+            position: absolute;
+            background: #5d4037;
+            z-index: 1;
+        }
+
+        .board-edge.top {
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            height: 15px;
+            transform-origin: bottom;
+            transform: rotateX(90deg);
+        }
+
+        .board-edge.bottom {
+            bottom: -15px;
+            left: -15px;
+            right: -15px;
+            height: 15px;
+            transform-origin: top;
+            transform: rotateX(-90deg);
+        }
+
+        .board-edge.left {
+            top: -15px;
+            bottom: -15px;
+            left: -15px;
+            width: 15px;
+            transform-origin: right;
+            transform: rotateY(-90deg);
+        }
+
+        .board-edge.right {
+            top: -15px;
+            bottom: -15px;
+            right: -15px;
+            width: 15px;
+            transform-origin: left;
+            transform: rotateY(90deg);
+        }
+
+        /* Registration Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: flex-start;
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+            padding: 2rem 0;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            transform-style: preserve-3d;
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.5s ease;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--accent);
+            margin: 2rem 0;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            font-size: 2rem;
+            color: var(--accent);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.7);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 101;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(248, 187, 34, 0.5);
+        }
+
+        /* Team members section */
+        #teamMembers {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+
+        /* Payment Info */
+        .payment-info {
+            background: rgba(248, 187, 34, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 3rem;
+            text-align: center;
+            margin-top: 5rem;
+        }
+
+        .contact-email {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .info-card {
+                padding: 2rem;
+            }
+            
+            .chess-board {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .close-btn {
+                top: 15px;
+                right: 15px;
+                font-size: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            #teamMembers {
+                max-height: 200px;
+            }
+            
+            .form-group {
+                margin-bottom: 0.8rem;
+            }
+            
+            input, textarea, select {
+                padding: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Peel District Chess Tournament</h1>
+            <p class="subtitle">Presented by Port Credit Chess Club</p>
+            <div class="date-badge">Thursday, May 22nd</div>
+            <button id="registerBtn" class="btn">Register Your School</button>
+        </div>
+        
+        <div class="chess-piece">♔</div>
+        <div class="chess-piece">♕</div>
+        <div class="chess-piece">♖</div>
+        <div class="chess-piece">♗</div>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>The Tournament</h2>
+            <div class="info-card">
+                <p>Join us for the Peel District Chess Tournament, where schools across the region will compete for glory. Each team will consist of 6 players, battling it out in a day of intense strategic competition. The event promises thrilling matches, delicious pizza, and prestigious trophies for the winners.</p>
+                
+                <div class="chess-board-container">
+                    <div class="chess-board">
+                        <div class="board-edge top"></div>
+                        <div class="board-edge bottom"></div>
+                        <div class="board-edge left"></div>
+                        <div class="board-edge right"></div>
+                        <!-- Chess board squares will be added by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="details">
+            <h2>Tournament Details</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>Team Composition</h3>
+                    <p>Each school team must consist of exactly 6 players. The team score will be calculated as the total points earned divided by 6 (number of players).</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Scoring System</h3>
+                    <p>Players earn points for each match: 1 for win, 0.5 for draw, 0 for loss. Team score = (Total points)/6. This ensures fair competition regardless of team size.</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>Food & Amenities</h3>
+                    <p>Complimentary pizza will be served to all participants. Water stations will be available throughout the venue. Please notify us of any dietary restrictions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="prizes">
+            <h2>Prizes & Awards</h2>
+            <div class="info-grid">
+                <div class="prize-card">
+                    <div class="prize-icon">🏆</div>
+                    <h3>Top Individual</h3>
+                    <p>1st, 2nd, and 3rd place individual performers will receive custom trophies!</p>
+                </div>
+                
+                <div class="prize-card">
+                    <div class="prize-icon">👑</div>
+                    <h3>Best Team</h3>
+                    <p>The school team with the highest average score will receive the Championship Trophy!</p>
+                </div>
+                
+                <div class="prize-card">
+                    <div class="prize-icon">🎖️</div>
+                    <h3>Special Recognition</h3>
+                    <p>All teams will be invited to next year's tournament and be registered on a list for other potential tournaments held by us next year!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="registration">
+            <h2>How to Participate</h2>
+            <div class="info-card">
+                <p>Schools must register by emailing their team roster to:</p>
+                <p class="contact-email">997933@pdsb.net (Sarveshwar Senthil Kumar)</p>
+                <p>Include: School name, team members' names and grades, and a contact teacher's information. This can be found by clicking the "Register your School" button above</p>
+                <div class="payment-info">
+                    <p><strong>Entry Fee:</strong> $15 per team member (total $90 per team of 6)</p>
+                    <p><em>Payment instructions will be sent after registration</em></p>
+                </div>
+                <p>Registration deadline: May 15th</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Tournament Registration</h2>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="schoolName">School Name</label>
+                    <input type="text" id="schoolName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teacherName">Teacher Contact Name</label>
+                    <input type="text" id="teacherName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teacherEmail">Teacher Email</label>
+                    <input type="email" id="teacherEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teacherPhone">Teacher Phone</label>
+                    <input type="tel" id="teacherPhone">
+                </div>
+                
+                <div class="form-group">
+                    <label>Team Members (6 required)</label>
+                    <div id="teamMembers">
+                        <!-- Team member inputs will be added by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="payment-info">
+                    <p><strong>Entry Fee:</strong> $15 per member × 6 = <strong>$90 total</strong></p>
+                    <p>Payment details will be emailed to you after registration</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="additionalInfo">Additional Information (Dietary restrictions, special requests, etc.)</label>
+                    <textarea id="additionalInfo" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Submit Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Port Credit Chess Club | Peel District Chess Tournament</p>
+        <p>All schools in the Peel District are welcome to participate</p>
+    </footer>
+
+    <script>
+        // Enhanced Chess Board
+        document.addEventListener('DOMContentLoaded', function() {
+            const chessPieces = {
+                black: ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                white: ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+            };
+            const board = document.querySelector('.chess-board');
+            
+            // Create chess board
+            for (let row = 0; row < 8; row++) {
+                for (let col = 0; col < 8; col++) {
+                    const square = document.createElement('div');
+                    square.className = `chess-square ${(row + col) % 2 === 0 ? 'light-square' : 'dark-square'}`;
+                    
+                    // Add pieces to first and last rows
+                    if (row === 0) {
+                        square.innerHTML = `<div class="chess-piece">${chessPieces.black[col]}</div>`;
+                        square.classList.add('has-piece');
+                    } else if (row === 1) {
+                        square.innerHTML = '<div class="chess-piece">♟</div>';
+                        square.classList.add('has-piece');
+                    } else if (row === 6) {
+                        square.innerHTML = '<div class="chess-piece">♙</div>';
+                        square.classList.add('has-piece');
+                    } else if (row === 7) {
+                        square.innerHTML = `<div class="chess-piece">${chessPieces.white[col]}</div>`;
+                        square.classList.add('has-piece');
+                    }
+                    
+                    // Add coordinates
+                    if (row === 7) {
+                        const coord = document.createElement('div');
+                        coord.className = 'coord';
+                        coord.textContent = String.fromCharCode(97 + col);
+                        coord.style.position = 'absolute';
+                        coord.style.bottom = '2px';
+                        coord.style.right = '2px';
+                        coord.style.color = (row + col) % 2 === 0 ? '#b58863' : '#f0d9b5';
+                        coord.style.fontSize = '10px';
+                        square.appendChild(coord);
+                    }
+                    if (col === 0) {
+                        const coord = document.createElement('div');
+                        coord.className = 'coord';
+                        coord.textContent = (8 - row).toString();
+                        coord.style.position = 'absolute';
+                        coord.style.top = '2px';
+                        coord.style.left = '2px';
+                        coord.style.color = (row + col) % 2 === 0 ? '#b58863' : '#f0d9b5';
+                        coord.style.fontSize = '10px';
+                        square.appendChild(coord);
+                    }
+                    
+                    board.appendChild(square);
+                }
+            }
+
+            // Registration Modal
+            const modal = document.getElementById('registrationModal');
+            const registerBtns = document.querySelectorAll('#registerBtn, #registerBtn2');
+            const closeBtn = document.querySelector('.close-btn');
+            const form = document.getElementById('registrationForm');
+            const teamMembersDiv = document.getElementById('teamMembers');
+            
+            // Initialize team member fields
+            function initializeTeamMembers() {
+                teamMembersDiv.innerHTML = '';
+                
+                for (let i = 0; i < 6; i++) {
+                    const memberDiv = document.createElement('div');
+                    memberDiv.className = 'form-group';
+                    memberDiv.style.marginTop = i > 0 ? '1rem' : '0';
+                    memberDiv.innerHTML = `
+                        <label>Team Member ${i+1}</label>
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+                            <input type="text" placeholder="Full Name" required>
+                            <input type="text" placeholder="Grade" required>
+                        </div>
+                    `;
+                    teamMembersDiv.appendChild(memberDiv);
+                }
+            }
+            
+            // Show modal function
+            function showModal() {
+                initializeTeamMembers(); // Initialize team members each time modal opens
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                modal.classList.add('active');
+            }
+            
+            // Hide modal function
+            function hideModal() {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            // Event listeners for both register buttons
+            registerBtns.forEach(btn => {
+                btn.addEventListener('click', showModal);
+            });
+            
+            // Close modal
+            closeBtn.addEventListener('click', hideModal);
+            
+            // Close when clicking outside
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideModal();
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Collect form data
+                const formData = {
+                    schoolName: document.getElementById('schoolName').value,
+                    teacherName: document.getElementById('teacherName').value,
+                    teacherEmail: document.getElementById('teacherEmail').value,
+                    teacherPhone: document.getElementById('teacherPhone').value,
+                    teamMembers: [],
+                    additionalInfo: document.getElementById('additionalInfo').value
+                };
+                
+                // Collect team members
+                const memberInputs = teamMembersDiv.querySelectorAll('input[type="text"]');
+                for (let i = 0; i < memberInputs.length; i += 2) {
+                    if (memberInputs[i].value && memberInputs[i+1].value) {
+                        formData.teamMembers.push({
+                            name: memberInputs[i].value,
+                            grade: memberInputs[i+1].value
+                        });
+                    }
+                }
+                
+                // Validate at least 6 members
+                if (formData.teamMembers.length < 6) {
+                    alert('Please enter all 6 team members');
+                    return;
+                }
+                
+                // Create email body
+                const emailBody = `School: ${formData.schoolName}%0D%0A
+Teacher: ${formData.teacherName}%0D%0A
+Email: ${formData.teacherEmail}%0D%0A
+Phone: ${formData.teacherPhone}%0D%0A%0D%0A
+Team Members:%0D%0A${formData.teamMembers.map(m => `${m.name} (Grade ${m.grade})`).join('%0D%0A')}%0D%0A%0D%0A
+Additional Info: ${formData.additionalInfo}%0D%0A%0D%0A
+Entry Fee: $90 (6 players × $15 each)%0D%0A
+Payment instructions will follow this registration.`;
+                
+                // Open email client
+                window.location.href = `mailto:997933@pdsb.net?subject=Peel Chess Tournament Registration - ${formData.schoolName}&body=${emailBody}`;
+                
+                // Close modal
+                hideModal();
+                alert('Registration submitted! Please complete by sending the email that opened. Payment instructions will be sent to you.');
+            });
+            
+            // Add parallax effect
+            document.addEventListener('mousemove', function(e) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                document.querySelector('.header-content').style.transform = `
+                    rotateY(${(x - 0.5) * 10}deg)
+                    rotateX(${(0.5 - y) * 10}deg)
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
