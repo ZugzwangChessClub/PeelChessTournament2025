@@ -388,6 +388,90 @@
             transform: translateX(3px);
         }
 
+        /* Rules Section */
+        .rules-list {
+            list-style-type: none;
+            counter-reset: rules-counter;
+        }
+
+        .rules-list li {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1rem;
+            counter-increment: rules-counter;
+        }
+
+        .rules-list li::before {
+            content: counter(rules-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--accent);
+            color: var(--dark);
+            width: 1.8rem;
+            height: 1.8rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Schedule Section */
+        .schedule-timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .schedule-timeline::before {
+            content: '';
+            position: absolute;
+            left: 1.2rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+        }
+
+        .schedule-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .schedule-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .schedule-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 0.3rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--secondary);
+        }
+
+        .schedule-time {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .schedule-desc {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
         /* Registration Modal */
         .modal {
             display: none;
@@ -510,64 +594,6 @@
             font-size: 1.2rem;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 3rem;
-            }
-            
-            .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .info-card {
-                padding: 2rem;
-            }
-            
-            .chess-board {
-                width: 300px;
-                height: 300px;
-            }
-            
-            .modal-content {
-                padding: 1.5rem;
-            }
-            
-            .close-btn {
-                top: 15px;
-                right: 15px;
-                font-size: 1.5rem;
-                width: 35px;
-                height: 35px;
-            }
-
-            .venue-card {
-                grid-template-columns: 1fr;
-            }
-
-            .venue-image {
-                min-height: 200px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .modal-content {
-                width: 95%;
-                padding: 1rem;
-            }
-            
-            #teamMembers {
-                max-height: 200px;
-            }
-            
-            .form-group {
-                margin-bottom: 0.8rem;
-            }
-            
-            input, textarea, select {
-                padding: 0.7rem;
-            }
-        }
         /* Back to Top Button */
         .back-to-top {
             position: fixed;
@@ -612,13 +638,82 @@
             transform: translateY(-3px);
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .info-card {
+                padding: 2rem;
+            }
+            
+            .chess-board {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .close-btn {
+                top: 15px;
+                right: 15px;
+                font-size: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+
+            .venue-card {
+                grid-template-columns: 1fr;
+            }
+
+            .venue-image {
+                min-height: 200px;
+            }
+
             .back-to-top {
                 width: 45px;
                 height: 45px;
                 font-size: 1.3rem;
                 bottom: 20px;
                 right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+            }
+            
+            #teamMembers {
+                max-height: 200px;
+            }
+            
+            .form-group {
+                margin-bottom: 0.8rem;
+            }
+            
+            input, textarea, select {
+                padding: 0.7rem;
+            }
+
+            .schedule-timeline {
+                padding-left: 2rem;
+            }
+
+            .schedule-timeline::before {
+                left: 0.7rem;
+            }
+
+            .schedule-item::before {
+                left: -2rem;
             }
         }
     </style>
@@ -667,6 +762,74 @@
                     <p><strong>Time:</strong> 2:15 PM - 7:00 PM</p>
                     <a href="https://portcredit.peelschools.org" target="_blank" class="venue-link">Visit School Website</a>
                 </div>
+            </div>
+        </section>
+
+        <section id="schedule">
+            <h2>Tournament Schedule</h2>
+            <div class="info-card">
+                <div class="schedule-timeline">
+                    <div class="schedule-item">
+                        <div class="schedule-time">2:15 PM - 2:40 PM</div>
+                        <div class="schedule-title">Arrival and Check-in</div>
+                        <div class="schedule-desc">All participants arrive and check in with their teams</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">2:45 PM - 3:00 PM</div>
+                        <div class="schedule-title">Opening Ceremony</div>
+                        <div class="schedule-desc">Welcome address and tournament overview</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">3:10 PM - 4:55 PM</div>
+                        <div class="schedule-title">Rounds 1-3</div>
+                        <div class="schedule-desc">First three rounds with 5-minute intermissions between rounds</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">4:55 PM - 5:25 PM</div>
+                        <div class="schedule-title">Dinner Break</div>
+                        <div class="schedule-desc">Pizza will be distributed (1 XL with 12 slices per team)</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">5:20 PM - 6:20 PM</div>
+                        <div class="schedule-title">Rounds 4-5</div>
+                        <div class="schedule-desc">Final two rounds of competition</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">6:45 PM - 7:00 PM</div>
+                        <div class="schedule-title">Award Ceremony</div>
+                        <div class="schedule-desc">Presentation of trophies and closing remarks</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rules">
+            <h2>Tournament Rules</h2>
+            <div class="info-card">
+                <ul class="rules-list">
+                    <li>Upon pairings being done, they will be posted. Each match will be labeled with a board number. Please check your pairings and locate your board.</li>
+                    <li><strong>Format:</strong> 5-round Swiss Pairing system</li>
+                    <li>Win/Loss report to be done to your section's arbiters.</li>
+                    <li>The total number of WINS won by your school, divided by 6, determines the average score per team. (Total wins / 6). The school with the highest score wins the School Team Chess Championship trophy.</li>
+                    <li>Each Chess team can have a maximum of 6 participants.</li>
+                    <li>Top 3 individual players will be awarded trophies (1st, 2nd, 3rd).</li>
+                    <li>Play on the designated Board number and appropriate paired color (white/black).</li>
+                    <li><strong>Time Control:</strong> 15 minutes per player, 0s increment (15|0).</li>
+                    <li>All moves are "Touch-Move" (touch a piece, and you must move it).</li>
+                    <li>Making Three Illegal moves is an immediate forfeit (call over a volunteer to keep track of the illegal move count).</li>
+                    <li>No take-backs.</li>
+                    <li>Any type of assistance, including the use of chess engines during your game is strictly prohibited. Upon this happening, you will be disqualified and banned from any future tournaments.</li>
+                    <li>You may not leave the chess board while it is your turn.</li>
+                    <li>If your opponent is absent, make your move, then start their clock. Call a volunteer over to confirm/record the win.</li>
+                    <li>The Head Arbiter reserves the right to make the final decision in any scenarios.</li>
+                    <li>Please Follow the PDSB Code of Conduct. This includes but is not limited to:
+                        <ul style="list-style-type: disc; margin-left: 2rem; margin-top: 0.5rem;">
+                            <li>Treating all participants and staff with respect.</li>
+                            <li>Respecting the equipment, the pieces, and the boards.</li>
+                        </ul>
+                    </li>
+                    <li>If any of these rules are broken, we will kindly ask you to leave.</li>
+                </ul>
             </div>
         </section>
 
@@ -726,9 +889,6 @@
                 <p>Registration deadline: May 1st</p>
             </div>
         </section>
-        <button class="back-to-top" aria-label="Back to Top">
-            <i>↑</i>
-        </button>
     </div>
 
     <!-- Registration Modal -->
@@ -783,6 +943,11 @@
         <p>© 2025 Port Credit Chess Club | Peel District-Wide Chess Tournament</p>
         <p>All schools in the Peel District are welcome to participate</p>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to Top">
+        <i>↑</i>
+    </button>
 
     <script>
         // Enhanced Chess Board
@@ -959,22 +1124,23 @@ Payment instructions will follow this registration.`;
                     rotateX(${(0.5 - y) * 10}deg)
                 `;
             });
-        });
-        // Back to Top Button
-        const backToTopButton = document.querySelector('.back-to-top');
-        
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTopButton.classList.add('active');
-            } else {
-                backToTopButton.classList.remove('active');
-            }
-        });
 
-        backToTopButton.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            // Back to Top Button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('active');
+                } else {
+                    backToTopButton.classList.remove('active');
+                }
+            });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
