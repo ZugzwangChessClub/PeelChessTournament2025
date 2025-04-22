@@ -56,6 +56,11 @@
             opacity: 0;
         }
 
+        .navbar.scrolling-up {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
         .navbar-logo {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
@@ -111,6 +116,7 @@
             color: var(--text);
             font-size: 1.5rem;
             cursor: pointer;
+            z-index: 1001;
         }
 
         /* 3D Animations */
@@ -416,24 +422,21 @@
             transform: rotateY(90deg);
         }
 
-        /* Venue Section */
+        /* Venue Section - Improved for Mobile */
         .venue-card {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
+            grid-template-columns: 1fr;
+            gap: 0;
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 0;
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         .venue-image {
-            height: 100%;
-            min-height: 300px;
+            height: 250px;
             background-image: url('https://portcredit.peelschools.org/sites/portcredit.peelschools.org/files/styles/gallery_slide_media/public/2023-09/port_credit_ss_building.jpg?itok=9bO7WgY4');
             background-size: cover;
             background-position: center;
@@ -446,7 +449,7 @@
         }
 
         .venue-content {
-            padding: 3rem;
+            padding: 2rem;
         }
 
         .venue-link {
@@ -457,6 +460,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            margin-top: 1rem;
         }
 
         .venue-link:hover {
@@ -768,6 +772,17 @@
         }
 
         /* Responsive */
+        @media (min-width: 768px) {
+            .venue-card {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .venue-image {
+                min-height: 300px;
+                height: auto;
+            }
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 3rem;
@@ -798,14 +813,6 @@
                 height: 35px;
             }
 
-            .venue-card {
-                grid-template-columns: 1fr;
-            }
-
-            .venue-image {
-                min-height: 200px;
-            }
-
             .back-to-top {
                 width: 45px;
                 height: 45px;
@@ -824,7 +831,7 @@
                 align-items: center;
                 padding: 1rem 0;
                 gap: 1rem;
-                transform: translateY(-100%);
+                transform: translateY(-150%);
                 transition: var(--transition);
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             }
@@ -839,6 +846,10 @@
         }
 
         @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
             .modal-content {
                 width: 95%;
                 padding: 1rem;
@@ -874,6 +885,14 @@
 
             .navbar-logo {
                 font-size: 1.2rem;
+            }
+            
+            .venue-content {
+                padding: 1.5rem;
+            }
+            
+            .venue-image {
+                height: 200px;
             }
         }
     </style>
@@ -935,7 +954,7 @@
                 <div class="venue-image"><img src="https://img.new.livestream.com/events/0000000000a79948/b0fa3de2-d9ba-417a-8306-c69ad49a9a72_640x359.jpg"></div>
                 <div class="venue-content">
                     <h3>Port Credit Secondary School</h3>
-                    <p>The tournament will be held in the spacious gymnasium of Port Credit Secondary School, a premier educational facility in the Peel District. The venue offers ample space for all participants, comfortable seating, and excellent facilities.</p>
+                    <p>The tournament will be held in the spacious cafeteria of Port Credit Secondary School, a premier educational facility in the Peel District. The venue offers ample space for all participants, comfortable seating, and excellent facilities.</p>
                     <p><strong>Address:</strong> 70 Mineola Road East, Mississauga, ON L5G 2E5</p>
                     <p><strong>Time:</strong> 2:15 PM - 7:00 PM</p>
                     <a href="https://portcredit.peelschools.org" target="_blank" class="venue-link">Visit School Website</a>
@@ -1346,49 +1365,65 @@ Payment instructions will follow this registration.`;
                 });
             });
 
-            // Navbar Scroll Behavior
-const navbar = document.querySelector('.navbar');
-let lastScroll = 0;
-const scrollThreshold = 10; // Adjust this value as needed (in pixels)
+            // Enhanced Navbar Scroll Behavior
+            const navbar = document.querySelector('.navbar');
+            let lastScroll = 0;
+            const scrollThreshold = 10; // Adjust this value as needed (in pixels)
+            let isScrollingDown = false;
+            let scrollTimeout;
 
-window.addEventListener('scroll', () => {
-    const currentScroll = window.pageYOffset;
-    
-    // At very top - always show navbar
-    if (currentScroll <= 0) {
-        navbar.classList.remove('hidden');
-        return;
-    }
-    
-    // Scrolling down - hide navbar (only if we've scrolled past threshold)
-    if (currentScroll > lastScroll + scrollThreshold && currentScroll > navbar.offsetHeight) {
-        navbar.classList.add('hidden');
-    } 
-    // Scrolling up - show navbar (anywhere on page)
-    else if (currentScroll < lastScroll - scrollThreshold) {
-        navbar.classList.remove('hidden');
-    }
-    
-    lastScroll = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative values
-});
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                // Clear any existing timeout
+                clearTimeout(scrollTimeout);
+                
+                // At very top - always show navbar
+                if (currentScroll <= 0) {
+                    navbar.classList.remove('hidden');
+                    navbar.classList.remove('scrolling-up');
+                    return;
+                }
+                
+                // Determine scroll direction
+                isScrollingDown = currentScroll > lastScroll;
+                
+                // Scrolling down - hide navbar (only if we've scrolled past threshold)
+                if (isScrollingDown && currentScroll > navbar.offsetHeight + scrollThreshold) {
+                    navbar.classList.add('hidden');
+                    navbar.classList.remove('scrolling-up');
+                } 
+                // Scrolling up - show navbar (anywhere on page)
+                else if (!isScrollingDown) {
+                    navbar.classList.remove('hidden');
+                    navbar.classList.add('scrolling-up');
+                }
+                
+                // Set a timeout to remove the scrolling-up class when scrolling stops
+                scrollTimeout = setTimeout(() => {
+                    navbar.classList.remove('scrolling-up');
+                }, 300);
+                
+                lastScroll = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative values
+            });
 
-// Mobile Menu Toggle
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navbarLinks = document.querySelector('.navbar-links');
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navbarLinks = document.querySelector('.navbar-links');
 
-mobileMenuBtn.addEventListener('click', () => {
-    navbarLinks.classList.toggle('active');
-    mobileMenuBtn.innerHTML = navbarLinks.classList.contains('active') ? 
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-});
+            mobileMenuBtn.addEventListener('click', () => {
+                navbarLinks.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navbarLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
 
-// Close mobile menu when clicking a link
-document.querySelectorAll('.navbar-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navbarLinks.classList.remove('active');
-        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    });
-});
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navbarLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
         });
     </script>
 </body>
