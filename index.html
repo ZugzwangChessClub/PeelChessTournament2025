@@ -910,6 +910,7 @@
             <a href="#schedule" class="navbar-link">Schedule</a>
             <a href="#rules" class="navbar-link">Rules</a>
             <a href="#prizes" class="navbar-link">Prizes</a>
+            <a href="#results" class="navbar-link">Results</a>
         </div>
         <button class="mobile-menu-btn">
             <i class="fas fa-bars"></i>
@@ -1084,6 +1085,30 @@
                     <p><em>Payment instructions will be sent after registration</em></p>
                 </div>
                 <p>Registration deadline: May 1st</p>
+            </div>
+        </section>
+
+                <section id="results">
+            <h2>Individual Standings</h2>
+            <div class="info-card">
+                <div class="search-container" style="margin-bottom: 1.5rem;">
+                    <input type="text" id="searchInput" placeholder="Search by name or school..." style="width: 100%; padding: 0.8rem; border-radius: 10px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; font-family: 'Montserrat', sans-serif;">
+                </div>
+                <div class="table-container" style="overflow-x: auto;">
+                    <table id="resultsTable" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(248, 187, 34, 0.2);">
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTable(0)">Rank <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTable(1)">Name <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTable(2)">School <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTable(3)">Score <i class="fas fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsTableBody">
+                            <!-- Table data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
     </div>
@@ -1424,6 +1449,172 @@ Payment instructions will follow this registration.`;
                     mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                 });
             });
+        });
+
+        // Results Table Data and Functionality
+        const standingsData = [
+            { rank: 1, name: "Ashwin Chunchu", school: "St. Francis Xavier SS", score: 5 },
+            { rank: 2, name: "Joshua Yeh", school: "St. Francis Xavier SS", score: 5 },
+            { rank: 3, name: "Nghi Nguyen", school: "Meadowvale SS", score: 4 },
+            { rank: 4, name: "Irene Xie", school: "Lorne Park SS", score: 4 },
+            { rank: 5, name: "Jonathan Zhang", school: "The Woodlands SS", score: 4 },
+            { rank: 6, name: "Antarip Das", school: "Port Credit SS", score: 4 },
+            { rank: 7, name: "Adam Cheng", school: "Lorne Park SS", score: 4 },
+            { rank: 8, name: "Muhammad Khan", school: "Central Peel SS", score: 4 },
+            { rank: 9, name: "Ariel Li", school: "Humberview SS", score: 4 },
+            { rank: 10, name: "Kai Kalaria", school: "Streetsville SS", score: 4 },
+            { rank: 11, name: "Felix Zhang", school: "Streetsville SS", score: 4 },
+            { rank: 12, name: "Pranith Sepuri", school: "Streetsville SS", score: 4 },
+            { rank: 13, name: "Charlie Champion", school: "Port Credit SS", score: 3.5 },
+            { rank: 14, name: "Siddh Sinha", school: "St. Francis Xavier SS", score: 3.5 },
+            { rank: 15, name: "Aaron Bell", school: "Port Credit SS", score: 3.5 },
+            { rank: 16, name: "Jack Guyatt", school: "Lorne Park SS", score: 3.5 },
+            { rank: 17, name: "Vishruth Sharma", school: "The Woodlands SS", score: 3 },
+            { rank: 18, name: "Ashutosh Nigdikar", school: "Mississauga SS", score: 3 },
+            { rank: 19, name: "Daniel Nguyen", school: "The Woodlands SS", score: 3 },
+            { rank: 20, name: "Devon Webster", school: "St. Francis Xavier SS", score: 3 },
+            { rank: 21, name: "Swapnil Bhoi", school: "Central Peel SS", score: 3 },
+            { rank: 22, name: "Amir Turakulov", school: "Port Credit SS", score: 3 },
+            { rank: 23, name: "Christian Planche", school: "St. Francis Xavier SS", score: 3 },
+            { rank: 24, name: "Yahia Al Shoubaki", school: "The Woodlands SS", score: 3 },
+            { rank: 25, name: "Alex Ly", school: "Stephen Lewis SS", score: 3 },
+            { rank: 26, name: "Gurshan Gill", school: "Harold M Brathwaite SS", score: 3 },
+            { rank: 27, name: "Vihaan Kaushal", school: "Meadowvale SS", score: 3 },
+            { rank: 28, name: "Jenny Phan", school: "Rick Hansen SS", score: 3 },
+            { rank: 29, name: "David Guevara", school: "Castlebrooke SS", score: 3 },
+            { rank: 30, name: "Karman Dhami", school: "Harold M Brathwaite SS", score: 3 },
+            { rank: 31, name: "Jaspreet Bharaj", school: "Castlebrooke SS", score: 3 },
+            { rank: 32, name: "Omar Sattar", school: "Rick Hansen SS", score: 3 },
+            { rank: 33, name: "Dilaxan Jeyaraja", school: "Harold M Brathwaite SS", score: 3 },
+            { rank: 34, name: "Hashir Safdar", school: "Mississauga SS", score: 3 },
+            { rank: 35, name: "Agam Khehara", school: "Rick Hansen SS", score: 3 },
+            { rank: 36, name: "Kabeer Talwar", school: "Meadowvale SS", score: 2.5 },
+            { rank: 37, name: "Daniel Malyshev", school: "Port Credit SS", score: 2.5 },
+            { rank: 38, name: "Rahul Aggarwal", school: "Harold M Brathwaite SS", score: 2.5 },
+            { rank: 39, name: "Harshdeep Nagi", school: "Castlebrooke SS", score: 2.5 },
+            { rank: 40, name: "Abdel Rahman Sabri", school: "Stephen Lewis SS", score: 2 },
+            { rank: 41, name: "Abdul wasey bin iqbal", school: "Stephen Lewis SS", score: 2 },
+            { rank: 42, name: "Gurneal Singh", school: "Castlebrooke SS", score: 2 },
+            { rank: 43, name: "Jaitra Bhatt", school: "Central Peel SS", score: 2 },
+            { rank: 44, name: "Nicholas Noronha", school: "Port Credit SS", score: 2 },
+            { rank: 45, name: "Ian Sun", school: "St. Francis Xavier SS", score: 2 },
+            { rank: 46, name: "Abdullah Khan", school: "The Woodlands SS", score: 2 },
+            { rank: 47, name: "Connor Na", school: "Lorne Park SS", score: 2 },
+            { rank: 48, name: "Sami Abu Allan", school: "Stephen Lewis SS", score: 2 },
+            { rank: 49, name: "Ahmad Al Shobaki", school: "Stephen Lewis SS", score: 2 },
+            { rank: 50, name: "Samarth Zala", school: "Harold M Brathwaite SS", score: 2 },
+            { rank: 51, name: "Ibrahim Noureddine", school: "Rick Hansen SS", score: 2 },
+            { rank: 52, name: "Harnoor Dharmait", school: "Harold M Brathwaite SS", score: 2 },
+            { rank: 53, name: "Shaanveer Kamboj", school: "Humberview SS", score: 2 },
+            { rank: 54, name: "Hamza Asim", school: "Rick Hansen1 Individual", score: 2 },
+            { rank: 55, name: "Ahmad Nader Akel", school: "Streetsville SS", score: 2 },
+            { rank: 56, name: "Teven Truong", school: "Streetsville SS", score: 2 },
+            { rank: 57, name: "Kiel Foster", school: "Meadowvale SS", score: 2 },
+            { rank: 58, name: "Randeep Saini", school: "Castlebrooke SS", score: 2 },
+            { rank: 59, name: "Ranveer Saini", school: "Castlebrooke1 Individual", score: 2 },
+            { rank: 60, name: "Harjot Kang", school: "Mississauga SS", score: 2 },
+            { rank: 61, name: "Surya Rajeskaran", school: "Meadowvale SS", score: 1.5 },
+            { rank: 62, name: "Ayenoor Danish", school: "Lorne Park SS", score: 1.5 },
+            { rank: 63, name: "Mohammed Alhafi", school: "Streetsville SS", score: 1.5 },
+            { rank: 64, name: "Kory Godfrey", school: "Meadowvale SS", score: 1.5 },
+            { rank: 65, name: "Bibek Singh", school: "Castlebrooke SS", score: 1.5 },
+            { rank: 66, name: "Charles Shervin I. de Leon", school: "Mississauga SS", score: 1 },
+            { rank: 67, name: "Harshit Sridhar", school: "The Woodlands SS", score: 1 },
+            { rank: 68, name: "Aaran Varlathelilan", school: "Central Peel SS", score: 1 },
+            { rank: 69, name: "Mohamed Ismail", school: "Rick Hansen SS", score: 1 },
+            { rank: 70, name: "Kayash Manikandan", school: "Central Peel SS", score: 1 },
+            { rank: 71, name: "Lakshay Verma", school: "Central Peel SS", score: 1 },
+            { rank: 72, name: "Durvank Mordekar", school: "Mississauga SS", score: 1 },
+            { rank: 73, name: "Abdullah Muhammad", school: "Mississauga SS", score: 1 },
+            { rank: 74, name: "Bharani Kumar SV", school: "Rick Hansen SS", score: 0.5 },
+            { rank: 75, name: "Faizan Mirza", school: "Stephen Lewis SS", score: 0 },
+            { rank: 76, name: "Naila Shaikh", school: "Meadowvale1 Individual", score: 0 }
+        ];
+
+        // Populate the table
+        function populateTable(data) {
+            const tableBody = document.getElementById('resultsTableBody');
+            tableBody.innerHTML = '';
+            
+            data.forEach(player => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+                row.innerHTML = `
+                    <td style="padding: 1rem;">${player.rank}</td>
+                    <td style="padding: 1rem;">${player.name}</td>
+                    <td style="padding: 1rem;">${player.school}</td>
+                    <td style="padding: 1rem;">${player.score}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredData = standingsData.filter(player => 
+                player.name.toLowerCase().includes(searchTerm) || 
+                player.school.toLowerCase().includes(searchTerm)
+            );
+            populateTable(filteredData);
+        });
+
+        // Sorting functionality
+        let currentSortColumn = 0;
+        let sortDirection = 1; // 1 for ascending, -1 for descending
+
+        function sortTable(columnIndex) {
+            // If clicking the same column, reverse the sort direction
+            if (currentSortColumn === columnIndex) {
+                sortDirection *= -1;
+            } else {
+                currentSortColumn = columnIndex;
+                sortDirection = 1;
+            }
+            
+            const sortedData = [...standingsData].sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(columnIndex) {
+                    case 0: // Rank
+                        valueA = a.rank;
+                        valueB = b.rank;
+                        break;
+                    case 1: // Name
+                        valueA = a.name.toLowerCase();
+                        valueB = b.name.toLowerCase();
+                        break;
+                    case 2: // School
+                        valueA = a.school.toLowerCase();
+                        valueB = b.school.toLowerCase();
+                        break;
+                    case 3: // Score
+                        valueA = a.score;
+                        valueB = b.score;
+                        break;
+                    default:
+                        return 0;
+                }
+                
+                if (valueA < valueB) return -1 * sortDirection;
+                if (valueA > valueB) return 1 * sortDirection;
+                return 0;
+            });
+            
+            populateTable(sortedData);
+            
+            // Update sort indicators
+            document.querySelectorAll('th i').forEach(icon => {
+                icon.className = 'fas fa-sort';
+            });
+            
+            const sortIcon = document.querySelectorAll('th')[columnIndex].querySelector('i');
+            sortIcon.className = sortDirection === 1 ? 'fas fa-sort-up' : 'fas fa-sort-down';
+        }
+
+        // Initialize the table on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            populateTable(standingsData);
         });
     </script>
 </body>
