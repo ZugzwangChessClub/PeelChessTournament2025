@@ -1088,7 +1088,7 @@
             </div>
         </section>
 
-                <section id="results">
+        <section id="results">
             <h2>Individual Standings</h2>
             <div class="info-card">
                 <div class="search-container" style="margin-bottom: 1.5rem;">
@@ -1109,6 +1109,7 @@
                         </tbody>
                     </table>
                 </div>
+                <button id="showMoreBtn" class="btn" style="margin-top: 1.5rem; width: 100%;">Show More Results</button>
             </div>
             <h2>Team Standings</h2>
             <div class="info-card">
@@ -1553,12 +1554,18 @@ Payment instructions will follow this registration.`;
             { rank: 76, name: "Naila Shaikh", school: "Meadowvale1 Individual", score: 0 }
         ];
 
-        // Populate the table
-        function populateTable(data) {
+        
+        let currentDisplayCount = 10;
+        const showMoreBtn = document.getElementById('showMoreBtn');
+
+        // Populate the table with limited results
+        function populateTable(data, limit = 10) {
             const tableBody = document.getElementById('resultsTableBody');
             tableBody.innerHTML = '';
             
-            data.forEach(player => {
+            const displayData = limit ? data.slice(0, limit) : data;
+            
+            displayData.forEach(player => {
                 const row = document.createElement('tr');
                 row.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
                 row.innerHTML = `
@@ -1569,24 +1576,45 @@ Payment instructions will follow this registration.`;
                 `;
                 tableBody.appendChild(row);
             });
+            
+            // Show/hide "Show More" button based on whether there are more results
+            if (limit && data.length > limit) {
+                showMoreBtn.style.display = 'block';
+            } else {
+                showMoreBtn.style.display = 'none';
+            }
         }
 
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const filteredData = standingsData.filter(player => 
+        // Show more results
+        showMoreBtn.addEventListener('click', function() {
+            currentDisplayCount += 10;
+            const filteredData = getFilteredData(); // Get currently filtered data
+            populateTable(filteredData, currentDisplayCount);
+        });
+
+        // Get currently filtered data based on search
+        function getFilteredData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            return standingsData.filter(player => 
                 player.name.toLowerCase().includes(searchTerm) || 
                 player.school.toLowerCase().includes(searchTerm)
             );
-            populateTable(filteredData);
+        }
+
+        // Search functionality - reset display count when searching
+        document.getElementById('searchInput').addEventListener('input', function() {
+            currentDisplayCount = 10;
+            const filteredData = getFilteredData();
+            populateTable(filteredData, currentDisplayCount);
         });
 
         // Sorting functionality
         let currentSortColumn = 0;
-        let sortDirection = 1; // 1 for ascending, -1 for descending
+        let sortDirection = 1;
 
         function sortTable(columnIndex) {
-            // If clicking the same column, reverse the sort direction
+            currentDisplayCount = 10; // Reset to 10 when sorting
+            
             if (currentSortColumn === columnIndex) {
                 sortDirection *= -1;
             } else {
@@ -1623,7 +1651,8 @@ Payment instructions will follow this registration.`;
                 return 0;
             });
             
-            populateTable(sortedData);
+            const filteredData = getFilteredData(sortedData);
+            populateTable(filteredData, currentDisplayCount);
             
             // Update sort indicators
             document.querySelectorAll('th i').forEach(icon => {
@@ -1636,7 +1665,8 @@ Payment instructions will follow this registration.`;
 
         // Initialize the table on page load
         document.addEventListener('DOMContentLoaded', function() {
-            populateTable(standingsData);
+            populateTable(standingsData, currentDisplayCount);
+            populateTeamTable(calculateTeamStandings());
         });
         // Calculate team standings from individual data
         function calculateTeamStandings() {
