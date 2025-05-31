@@ -1110,6 +1110,28 @@
                     </table>
                 </div>
             </div>
+            <h2>Team Standings</h2>
+            <div class="info-card">
+                <div class="search-container" style="margin-bottom: 1.5rem;">
+                    <input type="text" id="teamSearchInput" placeholder="Search by school name..." style="width: 100%; padding: 0.8rem; border-radius: 10px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: white; font-family: 'Montserrat', sans-serif;">
+                </div>
+                <div class="table-container" style="overflow-x: auto;">
+                    <table id="teamResultsTable" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: rgba(248, 187, 34, 0.2);">
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTeamTable(0)">Rank <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTeamTable(1)">School <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTeamTable(2)">Total Score <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;" onclick="sortTeamTable(3)">Average Score <i class="fas fa-sort"></i></th>
+                                <th style="padding: 1rem; text-align: left; cursor: pointer;">Top Players <i class="fas fa-sort"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody id="teamResultsTableBody">
+                            <!-- Team data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </section>
     </div>
 
@@ -1615,6 +1637,152 @@ Payment instructions will follow this registration.`;
         // Initialize the table on page load
         document.addEventListener('DOMContentLoaded', function() {
             populateTable(standingsData);
+        });
+        // Calculate team standings from individual data
+        function calculateTeamStandings() {
+            const teamMap = {};
+            
+            // Process all players and aggregate by school
+            standingsData.forEach(player => {
+                // Skip individual entries (those with "Individual" in school name)
+                if (player.school.includes("Individual")) return;
+                
+                if (!teamMap[player.school]) {
+                    teamMap[player.school] = {
+                        name: player.school,
+                        totalScore: 0,
+                        playerCount: 0,
+                        topPlayers: []
+                    };
+                }
+                
+                const team = teamMap[player.school];
+                team.totalScore += player.score;
+                team.playerCount++;
+                
+                // Keep track of top 3 players per school
+                team.topPlayers.push({
+                    name: player.name,
+                    score: player.score
+                });
+            });
+            
+            // Convert to array and calculate averages
+            const teamStandings = Object.values(teamMap).map(team => {
+                // Sort top players by score (descending)
+                team.topPlayers.sort((a, b) => b.score - a.score);
+                
+                return {
+                    ...team,
+                    averageScore: (team.totalScore / 6).toFixed(2), // Assuming 6 players per team
+                    formattedTopPlayers: team.topPlayers.map(p => `${p.name} (${p.score})`).join(', ')
+                };
+            });
+            
+            // Sort by average score (descending) then by total score (descending)
+            teamStandings.sort((a, b) => {
+                if (b.averageScore !== a.averageScore) {
+                    return b.averageScore - a.averageScore;
+                }
+                return b.totalScore - a.totalScore;
+            });
+            
+            // Add ranks
+            teamStandings.forEach((team, index) => {
+                team.rank = index + 1;
+            });
+            
+            return teamStandings;
+        }
+
+        // Populate the team table
+        function populateTeamTable(data) {
+            const tableBody = document.getElementById('teamResultsTableBody');
+            tableBody.innerHTML = '';
+            
+            data.forEach(team => {
+                const row = document.createElement('tr');
+                row.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+                row.innerHTML = `
+                    <td style="padding: 1rem;">${team.rank}</td>
+                    <td style="padding: 1rem;">${team.name}</td>
+                    <td style="padding: 1rem;">${team.totalScore}</td>
+                    <td style="padding: 1rem;">${team.averageScore}</td>
+                    <td style="padding: 1rem;" title="${team.formattedTopPlayers}">${team.formattedTopPlayers}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Search functionality for teams
+        document.getElementById('teamSearchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredData = calculateTeamStandings().filter(team => 
+                team.name.toLowerCase().includes(searchTerm)
+            );
+            populateTeamTable(filteredData);
+        });
+
+        // Sorting functionality for teams
+        let currentTeamSortColumn = 0;
+        let teamSortDirection = 1;
+
+        function sortTeamTable(columnIndex) {
+            if (currentTeamSortColumn === columnIndex) {
+                teamSortDirection *= -1;
+            } else {
+                currentTeamSortColumn = columnIndex;
+                teamSortDirection = 1;
+            }
+            
+            const sortedData = [...calculateTeamStandings()].sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(columnIndex) {
+                    case 0: // Rank
+                        valueA = a.rank;
+                        valueB = b.rank;
+                        break;
+                    case 1: // School
+                        valueA = a.name.toLowerCase();
+                        valueB = b.name.toLowerCase();
+                        break;
+                    case 2: // Total Score
+                        valueA = a.totalScore;
+                        valueB = b.totalScore;
+                        break;
+                    case 3: // Average Score
+                        valueA = parseFloat(a.averageScore);
+                        valueB = parseFloat(b.averageScore);
+                        break;
+                    case 4: // Top Players
+                        valueA = a.formattedTopPlayers.toLowerCase();
+                        valueB = b.formattedTopPlayers.toLowerCase();
+                        break;
+                    default:
+                        return 0;
+                }
+                
+                if (valueA < valueB) return -1 * teamSortDirection;
+                if (valueA > valueB) return 1 * teamSortDirection;
+                return 0;
+            });
+            
+            populateTeamTable(sortedData);
+            
+            // Update sort indicators
+            document.querySelectorAll('#teamResultsTable th i').forEach(icon => {
+                icon.className = 'fas fa-sort';
+            });
+            
+            const sortIcon = document.querySelectorAll('#teamResultsTable th')[columnIndex].querySelector('i');
+            sortIcon.className = teamSortDirection === 1 ? 'fas fa-sort-up' : 'fas fa-sort-down';
+        }
+
+        // Initialize both tables on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            populateTable(standingsData);
+            populateTeamTable(calculateTeamStandings());
         });
     </script>
 </body>
