@@ -895,6 +895,22 @@
                 height: 200px;
             }
         }
+
+        .gold-line {
+            border-left: 4px solid gold !important;
+        }
+        
+        .silver-line {
+            border-left: 4px solid silver !important;
+        }
+        
+        .bronze-line {
+            border-left: 4px solid #cd7f32 !important; /* bronze color */
+        }
+        
+        #teamResultsTableBody tr {
+            padding-left: 4px;
+        }
     </style>
 </head>
 <body>
@@ -1516,7 +1532,7 @@ Payment instructions will follow this registration.`;
             { rank: 38, name: "Rahul Aggarwal", school: "Harold M Brathwaite SS", score: 2.5 },
             { rank: 39, name: "Harshdeep Nagi", school: "Castlebrooke SS", score: 2.5 },
             { rank: 40, name: "Abdel Rahman Sabri", school: "Stephen Lewis SS", score: 2 },
-            { rank: 41, name: "Abdul wasey bin iqbal", school: "Stephen Lewis SS", score: 2 },
+            { rank: 41, name: "Abdul Wasey bin Iqbal", school: "Stephen Lewis SS", score: 2 },
             { rank: 42, name: "Gurneal Singh", school: "Castlebrooke SS", score: 2 },
             { rank: 43, name: "Jaitra Bhatt", school: "Central Peel SS", score: 2 },
             { rank: 44, name: "Nicholas Noronha", school: "Port Credit SS", score: 2 },
@@ -1564,10 +1580,19 @@ Payment instructions will follow this registration.`;
             tableBody.innerHTML = '';
             
             const displayData = limit ? data.slice(0, limit) : data;
-            
+            itemIndex = 0
             displayData.forEach(player => {
                 const row = document.createElement('tr');
                 row.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+
+                if (itemIndex === 0) {
+                    row.classList.add('gold-line');
+                } else if (itemIndex === 1) {
+                    row.classList.add('silver-line');
+                } else if (itemIndex === 2) {
+                    row.classList.add('bronze-line');
+                }
+
                 row.innerHTML = `
                     <td style="padding: 1rem;">${player.rank}</td>
                     <td style="padding: 1rem;">${player.name}</td>
@@ -1575,6 +1600,7 @@ Payment instructions will follow this registration.`;
                     <td style="padding: 1rem;">${player.score}</td>
                 `;
                 tableBody.appendChild(row);
+                itemIndex+=1
             });
             
             // Show/hide "Show More" button based on whether there are more results
@@ -1729,10 +1755,19 @@ Payment instructions will follow this registration.`;
         function populateTeamTable(data) {
             const tableBody = document.getElementById('teamResultsTableBody');
             tableBody.innerHTML = '';
-            
+            itemIndex = 0
             data.forEach(team => {
                 const row = document.createElement('tr');
                 row.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+
+                if (itemIndex === 0) {
+                    row.classList.add('gold-line');
+                } else if (itemIndex === 1) {
+                    row.classList.add('silver-line');
+                } else if (itemIndex === 2) {
+                    row.classList.add('bronze-line');
+                }
+
                 row.innerHTML = `
                     <td style="padding: 1rem;">${team.rank}</td>
                     <td style="padding: 1rem;">${team.name}</td>
@@ -1741,6 +1776,7 @@ Payment instructions will follow this registration.`;
                     <td style="padding: 1rem;" title="${team.formattedTopPlayers}">${team.formattedTopPlayers}</td>
                 `;
                 tableBody.appendChild(row);
+                itemIndex+=1
             });
         }
 
