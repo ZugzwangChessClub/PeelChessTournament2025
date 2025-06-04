@@ -911,6 +911,98 @@
         #teamResultsTableBody tr {
             padding-left: 4px;
         }
+
+        /* Pairings Section */
+        .pairings-tabs {
+
+
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pairings-tab {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .pairings-tab:hover {
+            background: rgba(248, 187, 34, 0.2);
+        }
+
+        .pairings-tab.active {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .pairings-round {
+            display: none;
+        }
+
+        .pairings-round.active {
+            display: block;
+        }
+
+        .pairings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .pairings-table th {
+            background: rgba(248, 187, 34, 0.2);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pairings-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .pairings-table tr:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+        }
+
+        /* Chess piece indicators */
+        .white-piece::before {
+            content: "♔";
+            margin-right: 0.5rem;
+            color: #f0d9b5;
+        }
+
+        .black-piece::before {
+            content: "♚";
+            margin-right: 0.5rem;
+            color: #b58863;
+        }
+
+        @media (max-width: 768px) {
+            .pairings-table th, 
+            .pairings-table td {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .pairings-tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1086,6 +1178,116 @@
                     <div class="prize-icon">🎖️</div>
                     <h3>Special Recognition</h3>
                     <p>All teams will be invited to next year's tournament and be registered on a list for other potential tournaments held by us next year!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pairings">
+            <h2>Tournament Pairings</h2>
+            <div class="info-card">
+                <div class="pairings-tabs">
+                    <button class="pairings-tab active" data-round="1">Round 1</button>
+                    <button class="pairings-tab" data-round="2">Round 2</button>
+                    <button class="pairings-tab" data-round="3">Round 3</button>
+                    <button class="pairings-tab" data-round="4">Round 4</button>
+                    <button class="pairings-tab" data-round="5">Round 5</button>
+                </div>
+                
+                <div class="pairings-content">
+                    <div class="pairings-round active" id="round1">
+                        <div class="table-container">
+                            <table class="pairings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Board</th>
+                                        <th>White Player</th>
+                                        <th>White School</th>
+                                        <th>Black Player</th>
+                                        <th>Black School</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Round 1 data will be inserted here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="pairings-round" id="round2">
+                        <div class="table-container">
+                            <table class="pairings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Board</th>
+                                        <th>White Player</th>
+                                        <th>White School</th>
+                                        <th>Black Player</th>
+                                        <th>Black School</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Round 2 data will be inserted here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="pairings-round" id="round3">
+                        <div class="table-container">
+                            <table class="pairings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Board</th>
+                                        <th>White Player</th>
+                                        <th>White School</th>
+                                        <th>Black Player</th>
+                                        <th>Black School</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Round 3 data will be inserted here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="pairings-round" id="round4">
+                        <div class="table-container">
+                            <table class="pairings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Board</th>
+                                        <th>White Player</th>
+                                        <th>White School</th>
+                                        <th>Black Player</th>
+                                        <th>Black School</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Round 4 data will be inserted here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="pairings-round" id="round5">
+                        <div class="table-container">
+                            <table class="pairings-table">
+                                <thead>
+                                    <tr>
+                                        <th>Board</th>
+                                        <th>White Player</th>
+                                        <th>White School</th>
+                                        <th>Black Player</th>
+                                        <th>Black School</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Round 5 data will be inserted here by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1850,6 +2052,250 @@ Payment instructions will follow this registration.`;
             populateTable(standingsData);
             populateTeamTable(calculateTeamStandings());
         });
+
+        // Pairings Data
+        const pairingsData = {
+            round1: [
+                { board: 1, white: "Ashwin Chunchu", whiteSchool: "St. Francis Xavier SS", black: "Nghi Nguyen", blackSchool: "Meadowvale SS" },
+                { board: 2, white: "Vishruth Sharma", whiteSchool: "The Woodlands SS", black: "Irene Xie", blackSchool: "Lorne Park SS" },
+                { board: 3, white: "Ashutosh Nigdikar", whiteSchool: "Mississauga SS", black: "Jonathan Zhang", blackSchool: "The Woodlands SS" },
+                { board: 4, white: "Abdel Rahman Sabri", whiteSchool: "Stephen Lewis SS", black: "Antarip Das", blackSchool: "Port Credit SS" },
+                { board: 5, white: "Abdul wasey bin iqbal", whiteSchool: "Stephen Lewis SS", black: "Adam Cheng", blackSchool: "Lorne Park SS" },
+                { board: 6, white: "Daniel Nguyen", whiteSchool: "The Woodlands SS", black: "Gurneal Singh", blackSchool: "Castlebrooke SS" },
+                { board: 7, white: "Jaitra Bhatt", whiteSchool: "Central Peel SS", black: "Nicholas Noronha", blackSchool: "Port Credit SS" },
+                { board: 8, white: "Charlie Champion", whiteSchool: "Port Credit SS", black: "Siddh Sinha", blackSchool: "St. Francis Xavier SS" },
+                { board: 9, white: "Ian Sun", whiteSchool: "St. Francis Xavier SS", black: "Charles Shervin I. de Leon", blackSchool: "Mississauga SS" },
+                { board: 10, white: "Harshit Sridhar", whiteSchool: "The Woodlands SS", black: "Devon Webster", blackSchool: "St. Francis Xavier SS" },
+                { board: 11, white: "Abdullah Khan", whiteSchool: "The Woodlands SS", black: "Joshua Yeh", blackSchool: "St. Francis Xavier SS" },
+                { board: 12, white: "Connor Na", whiteSchool: "Lorne Park SS", black: "Swapnil Bhoi", blackSchool: "Central Peel SS" },
+                { board: 13, white: "Amir Turakulov", whiteSchool: "Port Credit SS", black: "Christian Planche", blackSchool: "St. Francis Xavier SS" },
+                { board: 14, white: "Yahia Al Shoubaki", whiteSchool: "The Woodlands SS", black: "Sami Abu Allan", blackSchool: "Stephen Lewis SS" },
+                { board: 15, white: "Ahmad Al Shobaki", whiteSchool: "Stephen Lewis SS", black: "Aaran Varlathelilan", blackSchool: "Central Peel SS" },
+                { board: 16, white: "Daniel Malyshev", whiteSchool: "Port Credit SS", black: "Kabeer Talwar", blackSchool: "Meadowvale SS" },
+                { board: 17, white: "Mohamed Ismail", whiteSchool: "Rick Hansen SS", black: "Aaron Bell", blackSchool: "Port Credit SS" },
+                { board: 18, white: "Kayash Manikandan", whiteSchool: "Central Peel SS", black: "Rahul Aggarwal", blackSchool: "Harold M Brathwaite SS" },
+                { board: 19, white: "Jack Guyatt", whiteSchool: "Lorne Park SS", black: "Lakshay Verma", blackSchool: "Central Peel SS" },
+                { board: 20, white: "Alex Ly", whiteSchool: "Stephen Lewis SS", black: "Samarth Zala", blackSchool: "Harold M Brathwaite SS" },
+                { board: 21, white: "Vihaan Kaushal", whiteSchool: "Meadowvale SS", black: "Gurshan Gill", blackSchool: "Harold M Brathwaite SS" },
+                { board: 22, white: "Jenny Phan", whiteSchool: "Rick Hansen SS", black: "Muhammad Khan", blackSchool: "Central Peel SS" },
+                { board: 23, white: "Surya Rajeskaran", whiteSchool: "Meadowvale SS", black: "Bharani Kumar SV", blackSchool: "Rick Hansen SS" },
+                { board: 24, white: "David Guevara", whiteSchool: "Castlebrooke SS", black: "Karman Dhami", blackSchool: "Harold M Brathwaite SS" },
+                { board: 25, white: "Jaspreet Bharaj", whiteSchool: "Castlebrooke SS", black: "Ibrahim Noureddine", blackSchool: "Rick Hansen SS" },
+                { board: 26, white: "Faizan Mirza", whiteSchool: "Stephen Lewis SS", black: "Harnoor Dharmait", blackSchool: "Harold M Brathwaite SS" },
+                { board: 27, white: "Ayenoor Danish", whiteSchool: "Lorne Park SS", black: "Shaanveer Kamboj", blackSchool: "Humberview SS" },
+                { board: 28, white: "Ariel Li", whiteSchool: "Humberview SS", black: "Omar Sattar", blackSchool: "Rick Hansen SS" },
+                { board: 29, white: "Kai Kalaria", whiteSchool: "Streetsville SS", black: "Hamza Asim", blackSchool: "Rick Hansen1 Individual" },
+                { board: 30, white: "Felix Zhang", whiteSchool: "Streetsville SS", black: "Kory Godfrey", blackSchool: "Meadowvale SS" },
+                { board: 31, white: "Durvank Mordekar", whiteSchool: "Mississauga SS", black: "Pranith Sepuri", blackSchool: "Streetsville SS" },
+                { board: 32, white: "Bibek Singh", whiteSchool: "Castlebrooke SS", black: "Ahmad Nader Akel", blackSchool: "Streetsville SS" },
+                { board: 33, white: "Teven Truong", whiteSchool: "Streetsville SS", black: "Dilaxan Jeyaraja", blackSchool: "Harold M Brathwaite SS" },
+                { board: 34, white: "Abdullah Muhammad", whiteSchool: "Mississauga SS", black: "Mohammed Alhafi", blackSchool: "Streetsville SS" },
+                { board: 35, white: "Kiel Foster", whiteSchool: "Meadowvale SS", black: "Hashir Safdar", blackSchool: "Mississauga SS" },
+                { board: 36, white: "Randeep Saini", whiteSchool: "Castlebrooke SS", black: "Ranveer Saini", blackSchool: "Castlebrooke1 Individual" },
+                { board: 37, white: "Harshdeep Nagi", whiteSchool: "Castlebrooke SS", black: "Harjot Kang", blackSchool: "Mississauga SS" },
+                { board: 38, white: "Agam Khehara", whiteSchool: "Rick Hansen SS", black: "Naila Shaikh", blackSchool: "Meadowvale1 Individual" }
+            ],
+            round2: [
+                { board: 1, white: "Ashwin Chunchu", whiteSchool: "St. Francis Xavier SS", black: "Jonathan Zhang", blackSchool: "The Woodlands SS" },
+                { board: 2, white: "Irene Xie", whiteSchool: "Lorne Park SS", black: "Antarip Das", blackSchool: "Port Credit SS" },
+                { board: 3, white: "Nicholas Noronha", whiteSchool: "Port Credit SS", black: "Adam Cheng", blackSchool: "Lorne Park SS" },
+                { board: 4, white: "Ian Sun", whiteSchool: "St. Francis Xavier SS", black: "Gurneal Singh", blackSchool: "Castlebrooke SS" },
+                { board: 5, white: "Devon Webster", whiteSchool: "St. Francis Xavier SS", black: "Connor Na", blackSchool: "Lorne Park SS" },
+                { board: 6, white: "Yahia Al Shoubaki", whiteSchool: "The Woodlands SS", black: "Joshua Yeh", blackSchool: "St. Francis Xavier SS" },
+                { board: 7, white: "Christian Planche", whiteSchool: "St. Francis Xavier SS", black: "Aaran Varlathelilan", blackSchool: "Central Peel SS" },
+                { board: 8, white: "Daniel Malyshev", whiteSchool: "Port Credit SS", black: "Rahul Aggarwal", blackSchool: "Harold M Brathwaite SS" },
+                { board: 9, white: "Jack Guyatt", whiteSchool: "Lorne Park SS", black: "Aaron Bell", blackSchool: "Port Credit SS" },
+                { board: 10, white: "Muhammad Khan", whiteSchool: "Central Peel SS", black: "Samarth Zala", blackSchool: "Harold M Brathwaite SS" },
+                { board: 11, white: "Vihaan Kaushal", whiteSchool: "Meadowvale SS", black: "Karman Dhami", blackSchool: "Harold M Brathwaite SS" },
+                { board: 12, white: "Shaanveer Kamboj", whiteSchool: "Humberview SS", black: "Jaspreet Bharaj", blackSchool: "Castlebrooke SS" },
+                { board: 13, white: "Harnoor Dharmait", whiteSchool: "Harold M Brathwaite SS", black: "Ariel Li", blackSchool: "Humberview SS" },
+                { board: 14, white: "Kai Kalaria", whiteSchool: "Streetsville SS", black: "Bibek Singh", blackSchool: "Castlebrooke SS" },
+                { board: 15, white: "Felix Zhang", whiteSchool: "Streetsville SS", black: "Dilaxan Jeyaraja", blackSchool: "Harold M Brathwaite SS" },
+                { board: 16, white: "Abdullah Muhammad", whiteSchool: "Mississauga SS", black: "Pranith Sepuri", blackSchool: "Streetsville SS" },
+                { board: 17, white: "Harshdeep Nagi", whiteSchool: "Castlebrooke SS", black: "Hashir Safdar", blackSchool: "Mississauga SS" },
+                { board: 18, white: "Agam Khehara", whiteSchool: "Rick Hansen SS", black: "Randeep Saini", blackSchool: "Castlebrooke SS" },
+                { board: 19, white: "Surya Rajeskaran", whiteSchool: "Meadowvale SS", black: "Charlie Champion", blackSchool: "Port Credit SS" },
+                { board: 20, white: "Bharani Kumar SV", whiteSchool: "Rick Hansen SS", black: "Siddh Sinha", blackSchool: "St. Francis Xavier SS" },
+                { board: 21, white: "Nghi Nguyen", whiteSchool: "Meadowvale SS", black: "Ashutosh Nigdikar", blackSchool: "Mississauga SS" },
+                { board: 22, white: "Abdel Rahman Sabri", whiteSchool: "Stephen Lewis SS", black: "Vishruth Sharma", blackSchool: "The Woodlands SS" },
+                { board: 23, white: "Abdul wasey bin iqbal", whiteSchool: "Stephen Lewis SS", black: "Jaitra Bhatt", blackSchool: "Central Peel SS" },
+                { board: 24, white: "Charles Shervin I. de Leon", whiteSchool: "Mississauga SS", black: "Daniel Nguyen", blackSchool: "The Woodlands SS" },
+                { board: 25, white: "Harshit Sridhar", whiteSchool: "The Woodlands SS", black: "Swapnil Bhoi", blackSchool: "Central Peel SS" },
+                { board: 26, white: "Amir Turakulov", whiteSchool: "Port Credit SS", black: "Abdullah Khan", blackSchool: "The Woodlands SS" },
+                { board: 27, white: "Sami Abu Allan", whiteSchool: "Stephen Lewis SS", black: "Kabeer Talwar", blackSchool: "Meadowvale SS" },
+                { board: 28, white: "Mohamed Ismail", whiteSchool: "Rick Hansen SS", black: "Ahmad Al Shobaki", blackSchool: "Stephen Lewis SS" },
+                { board: 29, white: "Kayash Manikandan", whiteSchool: "Central Peel SS", black: "Alex Ly", blackSchool: "Stephen Lewis SS" },
+                { board: 30, white: "Gurshan Gill", whiteSchool: "Harold M Brathwaite SS", black: "Lakshay Verma", blackSchool: "Central Peel SS" },
+                { board: 31, white: "Faizan Mirza", whiteSchool: "Stephen Lewis SS", black: "Jenny Phan", blackSchool: "Rick Hansen SS" },
+                { board: 32, white: "David Guevara", whiteSchool: "Castlebrooke SS", black: "Ibrahim Noureddine", blackSchool: "Rick Hansen SS" },
+                { board: 33, white: "Ayenoor Danish", whiteSchool: "Lorne Park SS", black: "Hamza Asim", blackSchool: "Rick Hansen1 Individual" },
+                { board: 34, white: "Omar Sattar", whiteSchool: "Rick Hansen SS", black: "Ahmad Nader Akel", blackSchool: "Streetsville SS" },
+                { board: 35, white: "Teven Truong", whiteSchool: "Streetsville SS", black: "Kory Godfrey", blackSchool: "Meadowvale SS" },
+                { board: 36, white: "Mohammed Alhafi", whiteSchool: "Streetsville SS", black: "Durvank Mordekar", blackSchool: "Mississauga SS" },
+                { board: 37, white: "Kiel Foster", whiteSchool: "Meadowvale SS", black: "Harjot Kang", blackSchool: "Mississauga SS" },
+                { board: 38, white: "Naila Shaikh", whiteSchool: "Meadowvale1 Individual", black: "Ranveer Saini", blackSchool: "Castlebrooke1 Individual" }
+            ],
+            round3: [
+                { board: 1, white: "Adam Cheng", whiteSchool: "Lorne Park SS", black: "Ashwin Chunchu", blackSchool: "St. Francis Xavier SS" },
+                { board: 2, white: "Ian Sun", whiteSchool: "St. Francis Xavier SS", black: "Antarip Das", blackSchool: "Port Credit SS" },
+                { board: 3, white: "Devon Webster", whiteSchool: "St. Francis Xavier SS", black: "Vihaan Kaushal", blackSchool: "Meadowvale SS" },
+                { board: 4, white: "Muhammad Khan", whiteSchool: "Central Peel SS", black: "Joshua Yeh", blackSchool: "St. Francis Xavier SS" },
+                { board: 5, white: "Jaspreet Bharaj", whiteSchool: "Castlebrooke SS", black: "Christian Planche", blackSchool: "St. Francis Xavier SS" },
+                { board: 6, white: "Ariel Li", whiteSchool: "Humberview SS", black: "Felix Zhang", blackSchool: "Streetsville SS" },
+                { board: 7, white: "Harshdeep Nagi", whiteSchool: "Castlebrooke SS", black: "Kai Kalaria", blackSchool: "Streetsville SS" },
+                { board: 8, white: "Agam Khehara", whiteSchool: "Rick Hansen SS", black: "Pranith Sepuri", blackSchool: "Streetsville SS" },
+                { board: 9, white: "Charlie Champion", whiteSchool: "Port Credit SS", black: "Jack Guyatt", blackSchool: "Lorne Park SS" },
+                { board: 10, white: "Siddh Sinha", whiteSchool: "St. Francis Xavier SS", black: "Aaron Bell", blackSchool: "Port Credit SS" },
+                { board: 11, white: "Daniel Malyshev", whiteSchool: "Port Credit SS", black: "Nghi Nguyen", blackSchool: "Meadowvale SS" },
+                { board: 12, white: "Rahul Aggarwal", whiteSchool: "Harold M Brathwaite SS", black: "Vishruth Sharma", blackSchool: "The Woodlands SS" },
+                { board: 13, white: "Abdul wasey bin iqbal", whiteSchool: "Stephen Lewis SS", black: "Irene Xie", blackSchool: "Lorne Park SS" },
+                { board: 14, white: "Gurneal Singh", whiteSchool: "Castlebrooke SS", black: "Jonathan Zhang", blackSchool: "The Woodlands SS" },
+                { board: 15, white: "Daniel Nguyen", whiteSchool: "The Woodlands SS", black: "Nicholas Noronha", blackSchool: "Port Credit SS" },
+                { board: 16, white: "Swapnil Bhoi", whiteSchool: "Central Peel SS", black: "Ahmad Al Shobaki", blackSchool: "Stephen Lewis SS" },
+                { board: 17, white: "Amir Turakulov", whiteSchool: "Port Credit SS", black: "Connor Na", blackSchool: "Lorne Park SS" },
+                { board: 18, white: "Samarth Zala", whiteSchool: "Harold M Brathwaite SS", black: "Yahia Al Shoubaki", blackSchool: "The Woodlands SS" },
+                { board: 19, white: "Alex Ly", whiteSchool: "Stephen Lewis SS", black: "Aaran Varlathelilan", blackSchool: "Central Peel SS" },
+                { board: 20, white: "Gurshan Gill", whiteSchool: "Harold M Brathwaite SS", black: "David Guevara", blackSchool: "Castlebrooke SS" },
+                { board: 21, white: "Karman Dhami", whiteSchool: "Harold M Brathwaite SS", black: "Jenny Phan", blackSchool: "Rick Hansen SS" },
+                { board: 22, white: "Omar Sattar", whiteSchool: "Rick Hansen SS", black: "Harnoor Dharmait", blackSchool: "Harold M Brathwaite SS" },
+                { board: 23, white: "Shaanveer Kamboj", whiteSchool: "Humberview SS", black: "Hamza Asim", blackSchool: "Rick Hansen1 Individual" },
+                { board: 24, white: "Bibek Singh", whiteSchool: "Castlebrooke SS", black: "Kory Godfrey", blackSchool: "Meadowvale SS" },
+                { board: 25, white: "Dilaxan Jeyaraja", whiteSchool: "Harold M Brathwaite SS", black: "Durvank Mordekar", blackSchool: "Mississauga SS" },
+                { board: 26, white: "Randeep Saini", whiteSchool: "Castlebrooke SS", black: "Abdullah Muhammad", blackSchool: "Mississauga SS" },
+                { board: 27, white: "Sami Abu Allan", whiteSchool: "Stephen Lewis SS", black: "Kiel Foster", blackSchool: "Meadowvale SS" },
+                { board: 28, white: "Kabeer Talwar", whiteSchool: "Meadowvale SS", black: "Hashir Safdar", blackSchool: "Mississauga SS" },
+                { board: 29, white: "Ranveer Saini", whiteSchool: "Castlebrooke1 Individual", black: "Bharani Kumar SV", blackSchool: "Rick Hansen SS" },
+                { board: 30, white: "Abdel Rahman Sabri", whiteSchool: "Stephen Lewis SS", black: "Surya Rajeskaran", blackSchool: "Meadowvale SS" },
+                { board: 31, white: "Ashutosh Nigdikar", whiteSchool: "Mississauga SS", black: "Jaitra Bhatt", blackSchool: "Central Peel SS" },
+                { board: 32, white: "Charles Shervin I. de Leon", whiteSchool: "Mississauga SS", black: "Abdullah Khan", blackSchool: "The Woodlands SS" },
+                { board: 33, white: "Harshit Sridhar", whiteSchool: "The Woodlands SS", black: "Mohamed Ismail", blackSchool: "Rick Hansen SS" },
+                { board: 34, white: "Kayash Manikandan", whiteSchool: "Central Peel SS", black: "Ibrahim Noureddine", blackSchool: "Rick Hansen SS" },
+                { board: 35, white: "Faizan Mirza", whiteSchool: "Stephen Lewis SS", black: "Lakshay Verma", blackSchool: "Central Peel SS" },
+                { board: 36, white: "Ahmad Nader Akel", whiteSchool: "Streetsville SS", black: "Ayenoor Danish", blackSchool: "Lorne Park SS" },
+                { board: 37, white: "Harjot Kang", whiteSchool: "Mississauga SS", black: "Teven Truong", blackSchool: "Streetsville SS" },
+                { board: 38, white: "Mohammed Alhafi", whiteSchool: "Streetsville SS", black: "Naila Shaikh", blackSchool: "Meadowvale1 Individual" }
+            ],
+            round4: [
+                { board: 1, white: "Kai Kalaria", whiteSchool: "Streetsville SS", black: "Ashwin Chunchu", blackSchool: "St. Francis Xavier SS" },
+                { board: 2, white: "Joshua Yeh", whiteSchool: "St. Francis Xavier SS", black: "Antarip Das", blackSchool: "Port Credit SS" },
+                { board: 3, white: "Felix Zhang", whiteSchool: "Streetsville SS", black: "Devon Webster", blackSchool: "St. Francis Xavier SS" },
+                { board: 4, white: "Pranith Sepuri", whiteSchool: "Streetsville SS", black: "Christian Planche", blackSchool: "St. Francis Xavier SS" },
+                { board: 5, white: "Siddh Sinha", whiteSchool: "St. Francis Xavier SS", black: "Jack Guyatt", blackSchool: "Lorne Park SS" },
+                { board: 6, white: "Nghi Nguyen", whiteSchool: "Meadowvale SS", black: "Rahul Aggarwal", blackSchool: "Harold M Brathwaite SS" },
+                { board: 7, white: "Irene Xie", whiteSchool: "Lorne Park SS", black: "Daniel Nguyen", blackSchool: "The Woodlands SS" },
+                { board: 8, white: "Jonathan Zhang", whiteSchool: "The Woodlands SS", black: "Ian Sun", blackSchool: "St. Francis Xavier SS" },
+                { board: 9, white: "Swapnil Bhoi", whiteSchool: "Central Peel SS", black: "Adam Cheng", blackSchool: "Lorne Park SS" },
+                { board: 10, white: "Yahia Al Shoubaki", whiteSchool: "The Woodlands SS", black: "Amir Turakulov", blackSchool: "Port Credit SS" },
+                { board: 11, white: "Muhammad Khan", whiteSchool: "Central Peel SS", black: "Vihaan Kaushal", blackSchool: "Meadowvale SS" },
+                { board: 12, white: "Jaspreet Bharaj", whiteSchool: "Castlebrooke SS", black: "Jenny Phan", blackSchool: "Rick Hansen SS" },
+                { board: 13, white: "David Guevara", whiteSchool: "Castlebrooke SS", black: "Shaanveer Kamboj", blackSchool: "Humberview SS" },
+                { board: 14, white: "Ariel Li", whiteSchool: "Humberview SS", black: "Dilaxan Jeyaraja", blackSchool: "Harold M Brathwaite SS" },
+                { board: 15, white: "Hashir Safdar", whiteSchool: "Mississauga SS", black: "Omar Sattar", blackSchool: "Rick Hansen SS" },
+                { board: 16, white: "Randeep Saini", whiteSchool: "Castlebrooke SS", black: "Charlie Champion", blackSchool: "Port Credit SS" },
+                { board: 17, white: "Sami Abu Allan", whiteSchool: "Stephen Lewis SS", black: "Harshdeep Nagi", blackSchool: "Castlebrooke SS" },
+                { board: 18, white: "Agam Khehara", whiteSchool: "Rick Hansen SS", black: "Ranveer Saini", blackSchool: "Castlebrooke1 Individual" },
+                { board: 19, white: "Kory Godfrey", whiteSchool: "Meadowvale SS", black: "Daniel Malyshev", blackSchool: "Port Credit SS" },
+                { board: 20, white: "Aaron Bell", whiteSchool: "Port Credit SS", black: "Bibek Singh", blackSchool: "Castlebrooke SS" },
+                { board: 21, white: "Abdul wasey bin iqbal", whiteSchool: "Stephen Lewis SS", black: "Vishruth Sharma", blackSchool: "The Woodlands SS" },
+                { board: 22, white: "Gurneal Singh", whiteSchool: "Castlebrooke SS", black: "Ashutosh Nigdikar", blackSchool: "Mississauga SS" },
+                { board: 23, white: "Abdel Rahman Sabri", whiteSchool: "Stephen Lewis SS", black: "Nicholas Noronha", blackSchool: "Port Credit SS" },
+                { board: 24, white: "Connor Na", whiteSchool: "Lorne Park SS", black: "Harshit Sridhar", blackSchool: "The Woodlands SS" },
+                { board: 25, white: "Abdullah Khan", whiteSchool: "The Woodlands SS", black: "Ahmad Al Shobaki", blackSchool: "Stephen Lewis SS" },
+                { board: 26, white: "Gurshan Gill", whiteSchool: "Harold M Brathwaite SS", black: "Aaran Varlathelilan", blackSchool: "Central Peel SS" },
+                { board: 27, white: "Alex Ly", whiteSchool: "Stephen Lewis SS", black: "Lakshay Verma", blackSchool: "Central Peel SS" },
+                { board: 28, white: "Ibrahim Noureddine", whiteSchool: "Rick Hansen SS", black: "Samarth Zala", blackSchool: "Harold M Brathwaite SS" },
+                { board: 29, white: "Karman Dhami", whiteSchool: "Harold M Brathwaite SS", black: "Ayenoor Danish", blackSchool: "Lorne Park SS" },
+                { board: 30, white: "Hamza Asim", whiteSchool: "Rick Hansen1 Individual", black: "Harnoor Dharmait", blackSchool: "Harold M Brathwaite SS" },
+                { board: 31, white: "Teven Truong", whiteSchool: "Streetsville SS", black: "Durvank Mordekar", blackSchool: "Mississauga SS" },
+                { board: 32, white: "Kiel Foster", whiteSchool: "Meadowvale SS", black: "Mohammed Alhafi", blackSchool: "Streetsville SS" },
+                { board: 33, white: "Kabeer Talwar", whiteSchool: "Meadowvale SS", black: "Abdullah Muhammad", blackSchool: "Mississauga SS" },
+                { board: 34, white: "Bharani Kumar SV", whiteSchool: "Rick Hansen SS", black: "Jaitra Bhatt", blackSchool: "Central Peel SS" },
+                { board: 35, white: "Surya Rajeskaran", whiteSchool: "Meadowvale SS", black: "Mohamed Ismail", blackSchool: "Rick Hansen SS" },
+                { board: 36, white: "Kayash Manikandan", whiteSchool: "Central Peel SS", black: "Charles Shervin I. de Leon", blackSchool: "Mississauga SS" },
+                { board: 37, white: "Harjot Kang", whiteSchool: "Mississauga SS", black: "Faizan Mirza", blackSchool: "Stephen Lewis SS" },
+                { board: 38, white: "Ahmad Nader Akel", whiteSchool: "Streetsville SS", black: "Naila Shaikh", blackSchool: "Meadowvale1 Individual" }
+            ],
+            round5: [
+                { board: 1, white: "Pranith Sepuri", whiteSchool: "Streetsville SS", black: "Ashwin Chunchu", blackSchool: "St. Francis Xavier SS" },
+                { board: 2, white: "Felix Zhang", whiteSchool: "Streetsville SS", black: "Joshua Yeh", blackSchool: "St. Francis Xavier SS" },
+                { board: 3, white: "Nghi Nguyen", whiteSchool: "Meadowvale SS", black: "Siddh Sinha", blackSchool: "St. Francis Xavier SS" },
+                { board: 4, white: "Antarip Das", whiteSchool: "Port Credit SS", black: "Vishruth Sharma", blackSchool: "The Woodlands SS" },
+                { board: 5, white: "Irene Xie", whiteSchool: "Lorne Park SS", black: "Devon Webster", blackSchool: "St. Francis Xavier SS" },
+                { board: 6, white: "Jonathan Zhang", whiteSchool: "The Woodlands SS", black: "Christian Planche", blackSchool: "St. Francis Xavier SS" },
+                { board: 7, white: "Adam Cheng", whiteSchool: "Lorne Park SS", black: "Yahia Al Shoubaki", blackSchool: "The Woodlands SS" },
+                { board: 8, white: "David Guevara", whiteSchool: "Castlebrooke SS", black: "Muhammad Khan", blackSchool: "Central Peel SS" },
+                { board: 9, white: "Jaspreet Bharaj", whiteSchool: "Castlebrooke SS", black: "Ariel Li", blackSchool: "Humberview SS" },
+                { board: 10, white: "Hashir Safdar", whiteSchool: "Mississauga SS", black: "Kai Kalaria", blackSchool: "Streetsville SS" },
+                { board: 11, white: "Agam Khehara", whiteSchool: "Rick Hansen SS", black: "Charlie Champion", blackSchool: "Port Credit SS" },
+                { board: 12, white: "Jack Guyatt", whiteSchool: "Lorne Park SS", black: "Daniel Malyshev", blackSchool: "Port Credit SS" },
+                { board: 13, white: "Harshdeep Nagi", whiteSchool: "Castlebrooke SS", black: "Aaron Bell", blackSchool: "Port Credit SS" },
+                { board: 14, white: "Ian Sun", whiteSchool: "St. Francis Xavier SS", black: "Ashutosh Nigdikar", blackSchool: "Mississauga SS" },
+                { board: 15, white: "Daniel Nguyen", whiteSchool: "The Woodlands SS", black: "Abdel Rahman Sabri", blackSchool: "Stephen Lewis SS" },
+                { board: 16, white: "Swapnil Bhoi", whiteSchool: "Central Peel SS", black: "Sami Abu Allan", blackSchool: "Stephen Lewis SS" },
+                { board: 17, white: "Alex Ly", whiteSchool: "Stephen Lewis SS", black: "Connor Na", blackSchool: "Lorne Park SS" },
+                { board: 18, white: "Amir Turakulov", whiteSchool: "Port Credit SS", black: "Samarth Zala", blackSchool: "Harold M Brathwaite SS" },
+                { board: 19, white: "Ahmad Al Shobaki", whiteSchool: "Stephen Lewis SS", black: "Gurshan Gill", blackSchool: "Harold M Brathwaite SS" },
+                { board: 20, white: "Vihaan Kaushal", whiteSchool: "Meadowvale SS", black: "Harnoor Dharmait", blackSchool: "Harold M Brathwaite SS" },
+                { board: 21, white: "Jenny Phan", whiteSchool: "Rick Hansen SS", black: "Teven Truong", blackSchool: "Streetsville SS" },
+                { board: 22, white: "Karman Dhami", whiteSchool: "Harold M Brathwaite SS", black: "Shaanveer Kamboj", blackSchool: "Humberview SS" },
+                { board: 23, white: "Kiel Foster", whiteSchool: "Meadowvale SS", black: "Omar Sattar", blackSchool: "Rick Hansen SS" },
+                { board: 24, white: "Dilaxan Jeyaraja", whiteSchool: "Harold M Brathwaite SS", black: "Randeep Saini", blackSchool: "Castlebrooke SS" },
+                { board: 25, white: "Ranveer Saini", whiteSchool: "Castlebrooke1 Individual", black: "Kabeer Talwar", blackSchool: "Meadowvale SS" },
+                { board: 26, white: "Surya Rajeskaran", whiteSchool: "Meadowvale SS", black: "Rahul Aggarwal", blackSchool: "Harold M Brathwaite SS" },
+                { board: 27, white: "Abdul wasey bin iqbal", whiteSchool: "Stephen Lewis SS", black: "Kory Godfrey", blackSchool: "Meadowvale SS" },
+                { board: 28, white: "Bibek Singh", whiteSchool: "Castlebrooke SS", black: "Jaitra Bhatt", blackSchool: "Central Peel SS" },
+                { board: 29, white: "Gurneal Singh", whiteSchool: "Castlebrooke SS", black: "Charles Shervin I. de Leon", blackSchool: "Mississauga SS" },
+                { board: 30, white: "Nicholas Noronha", whiteSchool: "Port Credit SS", black: "Harshit Sridhar", blackSchool: "The Woodlands SS" },
+                { board: 31, white: "Lakshay Verma", whiteSchool: "Central Peel SS", black: "Abdullah Khan", blackSchool: "The Woodlands SS" },
+                { board: 32, white: "Ibrahim Noureddine", whiteSchool: "Rick Hansen SS", black: "Aaran Varlathelilan", blackSchool: "Central Peel SS" },
+                { board: 33, white: "Ayenoor Danish", whiteSchool: "Lorne Park SS", black: "Mohammed Alhafi", blackSchool: "Streetsville SS" },
+                { board: 34, white: "Durvank Mordekar", whiteSchool: "Mississauga SS", black: "Hamza Asim", blackSchool: "Rick Hansen1 Individual" },
+                { board: 35, white: "Abdullah Muhammad", whiteSchool: "Mississauga SS", black: "Ahmad Nader Akel", blackSchool: "Streetsville SS" },
+                { board: 36, white: "Bharani Kumar SV", whiteSchool: "Rick Hansen SS", black: "Harjot Kang", blackSchool: "Mississauga SS" },
+                { board: 37, white: "Faizan Mirza", whiteSchool: "Stephen Lewis SS", black: "Mohamed Ismail", blackSchool: "Rick Hansen SS" },
+                { board: 38, white: "Naila Shaikh", whiteSchool: "Meadowvale1 Individual", black: "Kayash Manikandan", blackSchool: "Central Peel SS" }
+            ]
+        };
+
+        // Function to populate pairings tables
+        function populatePairingsTables() {
+            for (const round in pairingsData) {
+                const tableBody = document.querySelector(`#${round} tbody`);
+                tableBody.innerHTML = '';
+                
+                pairingsData[round].forEach(pairing => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${pairing.board}</td>
+                        <td><span class="white-piece">${pairing.white}</span></td>
+                        <td>${pairing.whiteSchool}</td>
+                        <td><span class="black-piece">${pairing.black}</span></td>
+                        <td>${pairing.blackSchool}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        // Tab switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            populatePairingsTables();
+            
+            const tabs = document.querySelectorAll('.pairings-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and rounds
+                    document.querySelectorAll('.pairings-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.pairings-round').forEach(r => r.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding round
+                    this.classList.add('active');
+                    const roundId = this.getAttribute('data-round');
+                    document.getElementById(`round${roundId}`).classList.add('active');
+                });
+            });
+        });
+
     </script>
 </body>
 </html>
